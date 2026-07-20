@@ -36,5 +36,32 @@ class Events_Plugin_Post_Type {
 			'rewrite'       => array( 'slug' => 'events' ),
 			'show_in_rest'  => true,
 		) );
+
+		self::register_taxonomy();
+	}
+
+	private static function register_taxonomy() {
+		$labels = array(
+			'name'              => __( 'Event Categories', 'events-plugin' ),
+			'singular_name'     => __( 'Event Category', 'events-plugin' ),
+			'search_items'      => __( 'Search Event Categories', 'events-plugin' ),
+			'all_items'         => __( 'All Event Categories', 'events-plugin' ),
+			'parent_item'       => __( 'Parent Category', 'events-plugin' ),
+			'parent_item_colon' => __( 'Parent Category:', 'events-plugin' ),
+			'edit_item'         => __( 'Edit Event Category', 'events-plugin' ),
+			'update_item'       => __( 'Update Event Category', 'events-plugin' ),
+			'add_new_item'      => __( 'Add New Event Category', 'events-plugin' ),
+			'new_item_name'     => __( 'New Event Category Name', 'events-plugin' ),
+			'menu_name'         => __( 'Categories', 'events-plugin' ),
+		);
+
+		register_taxonomy( 'event_category', 'event', array(
+			'labels'            => $labels,
+			'hierarchical'      => true,
+			'public'            => true,
+			'show_in_rest'      => true,
+			'show_admin_column' => true,
+			'rewrite'           => array( 'slug' => 'event-category' ),
+		) );
 	}
 }

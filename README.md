@@ -19,9 +19,24 @@ Lightweight WordPress plugin for creating and displaying public events. Built as
 
 Events are available at `/events/` automatically once the plugin is active.
 
+### Event categories
+
+Events can be assigned to one or more categories via the **Events > Categories** menu in wp-admin. Categories are hierarchical (like standard WordPress post categories), so you can nest sub-categories under parent ones if needed.
+
 ### Shortcode
 
 Place `[events_list]` on any page or post to embed the upcoming events list.
+
+| Attribute | Default | Description |
+|---|---|---|
+| `category` | *(all)* | Comma-separated category slugs to filter by |
+
+Examples:
+```
+[events_list]
+[events_list category="music"]
+[events_list category="music,workshops,community"]
+```
 
 ### Creating events
 

@@ -29,7 +29,12 @@ class Events_Plugin_Query {
 	 *
 	 * @return array WP_Query arguments.
 	 */
-	public static function get_query_args() {
+	/**
+	 * @param array $overrides Optional caller-supplied constraints.
+	 *                         Supported keys:
+	 *                           'category' (string) — comma-separated event_category slugs.
+	 */
+	public static function get_query_args( $overrides = array() ) {
 		$today = gmdate( 'Y-m-d' );
 
 		$args = array(
@@ -49,6 +54,25 @@ class Events_Plugin_Query {
 				),
 			),
 		);
+
+		// Category filter — applied when caller passes a 'category' override
+		// (e.g. from the [events_list category="music,workshops"] shortcode).
+		if ( ! empty( $overrides['category'] ) ) {
+			$slugs = array_values( array_filter( array_map(
+				'sanitize_title',
+				array_map( 'trim', explode( ',', $overrides['category'] ) )
+			) ) );
+
+			if ( $slugs ) {
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'event_category',
+						'field'    => 'slug',
+						'terms'    => $slugs,
+					),
+				);
+			}
+		}
 
 		/**
 		 * Filter: events_plugin_event_query_args
@@ -74,8 +98,9 @@ class Events_Plugin_Query {
 	 *
 	 * @return string HTML output.
 	 */
-	public static function render_events_list() {
-		$query = new WP_Query( self::get_query_args() );
+	/** @param array $overrides Passed through to get_query_args(). */
+	public static function render_events_list( $overrides = array() ) {
+		$query = new WP_Query( self::get_query_args( $overrides ) );
 
 		ob_start();
 
@@ -199,15 +224,29 @@ class Events_Plugin_Query {
 	 * [events_list] shortcode.
 	 *
 	 * Embeds the upcoming events list on any page or post.
-	 * Accepts no attributes in the MVP; the query is controlled via the
-	 * events_plugin_event_query_args filter.
 	 *
-	 * @param array $atts Shortcode attributes (unused in MVP).
+	 * Attributes:
+	 *   category  (string)  Comma-separated event_category slugs to filter by.
+	 *                       Omit to show all upcoming events.
+	 *                       Examples:
+	 *                         [events_list]
+	 *                         [events_list category="music"]
+	 *                         [events_list category="music,workshops,community"]
+	 *
+	 * @param array $atts Shortcode attributes.
 	 * @return string     Rendered events list HTML.
 	 */
 	public static function shortcode( $atts ) {
-		shortcode_atts( array(), $atts, 'events_list' );
-		return '<div class="ep-events-shortcode">' . self::render_events_list() . '</div>';
+		$atts = shortcode_atts( array(
+			'category' => '',
+		), $atts, 'events_list' );
+
+		$overrides = array();
+		if ( ! empty( $atts['category'] ) ) {
+			$overrides['category'] = $atts['category'];
+		}
+
+		return '<div class="ep-events-shortcode">' . self::render_events_list( $overrides ) . '</div>';
 	}
 
 	// -------------------------------------------------------------------------
