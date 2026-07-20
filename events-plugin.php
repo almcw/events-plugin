@@ -3,7 +3,7 @@
  * Plugin Name:       Events Plugin
  * Plugin URI:        https://happening.co.uk
  * Description:       Lightweight public events listing. Create events in wp-admin; display them sorted by date via archive template or [events_list] shortcode.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * License:           GPL v2 or later
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'EVENTS_PLUGIN_VERSION', '1.0.0' );
+define( 'EVENTS_PLUGIN_VERSION', '1.0.1' );
 define( 'EVENTS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EVENTS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
