@@ -1,0 +1,229 @@
+/* =============================================================================
+   Events Plugin — base styles
+   Minimal and deliberately unopinionated. Provides layout and legibility;
+   colour and typography are largely inherited from the active theme.
+   ============================================================================= */
+
+/* --- Container --------------------------------------------------------------- */
+
+.ep-container {
+	max-width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 2rem 1.5rem;
+}
+
+/* --- Archive page ------------------------------------------------------------ */
+
+.ep-archive__header {
+	margin-bottom: 2rem;
+}
+
+.ep-archive__title {
+	font-size: 2rem;
+	font-weight: 700;
+	margin: 0;
+	line-height: 1.2;
+}
+
+/* --- Events list grid -------------------------------------------------------- */
+
+.ep-events-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 1.5rem;
+	grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+	.ep-events-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+	.ep-events-list { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* --- Event card -------------------------------------------------------------- */
+
+.ep-event-card {
+	background: #fff;
+	border: 1px solid #e2e2de;
+	border-radius: 8px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Image */
+.ep-event-card__image-wrap {
+	display: block;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.ep-event-card__image {
+	display: block;
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+	transition: transform 0.2s ease;
+}
+
+.ep-event-card__image-wrap:hover .ep-event-card__image {
+	transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ep-event-card__image { transition: none; }
+}
+
+/* Card body */
+.ep-event-card__body {
+	padding: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	flex: 1;
+}
+
+/* Card title */
+.ep-event-card__title {
+	font-size: 1.125rem;
+	font-weight: 600;
+	margin: 0;
+	line-height: 1.3;
+}
+
+.ep-event-card__title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.ep-event-card__title a:hover {
+	text-decoration: underline;
+}
+
+/* CTA link */
+.ep-event-card__cta {
+	display: inline-block;
+	align-self: flex-start;
+	margin-top: auto;
+	padding: 0.45rem 1rem;
+	background: #2a2a2a;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 4px;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	transition: background 0.15s ease;
+}
+
+.ep-event-card__cta:hover { background: #444; color: #fff; }
+
+.ep-event-card__cta:focus-visible {
+	outline: 2px solid #2a2a2a;
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ep-event-card__cta { transition: none; }
+}
+
+/* --- Meta list (shared: card + single) -------------------------------------- */
+
+.ep-event-card__meta,
+.ep-single-event__meta {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+}
+
+.ep-meta {
+	display: flex;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+.ep-meta__label {
+	font-weight: 600;
+	flex-shrink: 0;
+	min-width: 4.5rem;
+	color: #555;
+}
+
+.ep-meta__value {
+	color: #333;
+}
+
+/* --- Empty state ------------------------------------------------------------- */
+
+.ep-no-events {
+	font-style: italic;
+	color: #666;
+	padding: 0.5rem 0;
+}
+
+/* --- Single event ------------------------------------------------------------ */
+
+.ep-single-event {
+	padding: 2rem 0;
+}
+
+.ep-single-event__header {
+	margin-bottom: 1.75rem;
+}
+
+.ep-single-event__title {
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1.2;
+	margin: 0 0 1.25rem;
+}
+
+.ep-single-event__image {
+	margin-bottom: 2rem;
+}
+
+.ep-single-event__img {
+	display: block;
+	width: 100%;
+	max-height: 420px;
+	object-fit: cover;
+	border-radius: 6px;
+}
+
+.ep-single-event__content {
+	max-width: 720px;
+	line-height: 1.75;
+}
+
+/* --- Back link --------------------------------------------------------------- */
+
+.ep-back-link {
+	margin-top: 2.5rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid #e2e2de;
+}
+
+.ep-back-link a {
+	font-size: 0.9rem;
+	color: inherit;
+	text-decoration: none;
+	opacity: 0.7;
+}
+
+.ep-back-link a:hover { opacity: 1; text-decoration: underline; }
+
+/* --- Access denied ---------------------------------------------------------- */
+
+.ep-access-denied {
+	color: #666;
+	padding: 2rem 0;
+}
