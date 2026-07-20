@@ -8,7 +8,7 @@ class Events_Plugin_Query {
 	public static function init() {
 		add_filter( 'template_include',   array( __CLASS__, 'load_templates' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
-		// Shortcode registered in Step 6.
+		add_shortcode( 'events_list',     array( __CLASS__, 'shortcode' ) );
 	}
 
 	// -------------------------------------------------------------------------
@@ -189,6 +189,25 @@ class Events_Plugin_Query {
 		}
 
 		return ob_get_clean();
+	}
+
+	// -------------------------------------------------------------------------
+	// Shortcode
+	// -------------------------------------------------------------------------
+
+	/**
+	 * [events_list] shortcode.
+	 *
+	 * Embeds the upcoming events list on any page or post.
+	 * Accepts no attributes in the MVP; the query is controlled via the
+	 * events_plugin_event_query_args filter.
+	 *
+	 * @param array $atts Shortcode attributes (unused in MVP).
+	 * @return string     Rendered events list HTML.
+	 */
+	public static function shortcode( $atts ) {
+		shortcode_atts( array(), $atts, 'events_list' );
+		return '<div class="ep-events-shortcode">' . self::render_events_list() . '</div>';
 	}
 
 	// -------------------------------------------------------------------------
